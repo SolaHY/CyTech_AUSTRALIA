@@ -6,22 +6,25 @@ class ContactFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ContactForm(), // ContactForm をポップアップとして表示
-            );
-          },
-        );
-      },
-      style: buttonStyle,
-      child: const Text("Open Contact Form"), //ContactFormを表示させるボタン
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16), // Adds bottom padding
+      child: ElevatedButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: ContactForm(), // ContactForm をポップアップとして表示
+              );
+            },
+          );
+        },
+        style: buttonStyle,
+        child: const Text("Contact Form"), // ContactFormを表示させるボタン
+      ),
     );
   }
 }

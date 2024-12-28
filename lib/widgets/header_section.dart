@@ -8,33 +8,47 @@ class HeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250, // Adjust height based on your design
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16), // 左右の余白
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // ロゴとテキストを中央で揃える
           children: [
-            Text(
-              "プログラミングで世界をデザイン",
-              style: defaultTextStyle.copyWith(
-                // styles.dart の defaultTextStyle を使用
-                color: Colors.white, // Override the color
-                fontSize: 75,
-                fontWeight: FontWeight.bold,
+            // ロゴ
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                'assets/images/ct_logo_w.png', // ロゴのパス
+                height: 70, // ロゴの高さを調整
+                fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              "- CyTech -",
-              style: defaultTextStyle.copyWith(
-                color: Colors.white, // Override the color
-                fontSize: 55,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "オンラインプログラミング学習",
-              style: defaultTextStyle.copyWith(
-                color: Colors.white, // Override the color
-                fontSize: 24,
+            const SizedBox(width: 16), // ロゴとテキストの間のスペース
+            // テキスト部分
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, // テキストを縦中央に配置
+                crossAxisAlignment: CrossAxisAlignment.start, // 左寄せ
+                children: [
+                  SelectableText(
+                    "プログラミングで",
+                    style: defaultTextStyle.copyWith(
+                      color: const Color(0xFF001668),
+                      fontSize: 70,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  const SizedBox(height: 8), // Smaller space between lines
+                  SelectableText(
+                    "世界をデザインしよう",
+                    style: defaultTextStyle.copyWith(
+                      color: const Color(0xFF001668),
+                      fontSize: 70,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ],
               ),
             ),
           ],
