@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:CyTech_Austraia_Dev/styles.dart';
 
 class TestimonialsSection extends StatelessWidget {
   const TestimonialsSection({super.key});

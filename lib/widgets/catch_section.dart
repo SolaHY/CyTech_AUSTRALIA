@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:CyTech_Austraia_Dev/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CatchSection extends StatelessWidget {

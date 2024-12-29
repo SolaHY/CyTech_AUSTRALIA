@@ -1,23 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CyTech_Austraia_Dev/styles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import Font Awesome package
-
-// class Footer extends StatelessWidget {
-//   const Footer({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.all(16),
-//       child: Center(
-//         child: Text(
-//           "© 2024 Your Company. All Rights Reserved.",
-//           style: defaultTextStyle,
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
