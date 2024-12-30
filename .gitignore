@@ -1,8 +1,12 @@
 # Dart/Flutter
 .dart_tool/
 .packages
+build/
 .flutter-plugins
 .flutter-plugins-dependencies
+# build/webだけを一時的に追跡
+!build/web/
+!build/web/**
 
 # IDE
 .idea/
