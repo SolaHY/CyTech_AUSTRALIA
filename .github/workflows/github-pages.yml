@@ -1,9 +1,8 @@
-name: github pages
+name: GitHub Pages Deployment
 
 on:
   push:
     branches: [ main ]
-
   workflow_dispatch:
 
 jobs:
@@ -12,25 +11,25 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Repository
+      - name: Get Repository Name
         id: version
         run: |
-          REPOSITORY=$(echo ${{ github.repository }} | sed -e "s#.*/##")
-          echo ::set-output name=repository::$REPOSITORY
-      - name: Flutter
+          REPOSITORY=$(echo "${{ github.repository }}" | sed -e "s#.*/##")
+          echo "repository=$REPOSITORY" >> $GITHUB_ENV
+
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.5'
-          channel: 'stable'
+          channel: stable
           cache: true
+
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter build web --web-renderer html --base-href /${{ steps.version.outputs.repository }}/
+      - run: flutter build web --web-renderer html --base-href /${{ env.repository }}/
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
