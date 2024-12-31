@@ -7,7 +7,7 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250, // Adjust height based on your design
+      height: 250,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16), // 左右の余白
         child: Row(
