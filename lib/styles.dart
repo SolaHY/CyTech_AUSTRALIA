@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final BoxDecoration gradientBackground = const BoxDecoration(
+const BoxDecoration gradientBackground = BoxDecoration(
   gradient: LinearGradient(
     colors: [Colors.purple, Colors.blue],
     begin: Alignment.topLeft,
@@ -8,7 +8,7 @@ final BoxDecoration gradientBackground = const BoxDecoration(
   ),
 );
 
-final TextStyle defaultTextStyle = const TextStyle(
+const TextStyle defaultTextStyle = TextStyle(
   color: Colors.white,
   fontSize: 16,
 );

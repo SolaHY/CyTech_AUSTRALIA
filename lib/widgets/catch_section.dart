@@ -11,25 +11,28 @@ class CatchSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // セクションタイトル
-          const SelectableText(
-            "What should I do after my working holiday?",
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF001668),
+          // Animated Title Section
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF001668), Color(0xFF2196F3)],
+            ).createShader(bounds),
+            child: const Text(
+              "After Your Working Holiday",
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
-          // 説明文
-          const SelectableText(
+          Text(
             "ワーホリが終わった後、こんな悩みを抱えていませんか？",
             style: TextStyle(
-              fontSize: 20,
-              color: Colors.black87,
+              fontSize: 24,
+              color: Colors.black54.withOpacity(0.8),
+              letterSpacing: 2,
             ),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
           // 悩みのリスト

@@ -26,6 +26,12 @@ class CoursesSection extends StatelessWidget {
         "color": Colors.purpleAccent,
       },
       {
+        "title": "PHP",
+        "description": "PHPを使用してWebアプリを構築しましょう。",
+        "icon": FontAwesomeIcons.php,
+        "color": Colors.greenAccent,
+      },
+      {
         "title": "SQL",
         "description": "SQLを使ってデータベースの操作と効率的なデータ管理を学びます。",
         "icon": FontAwesomeIcons.database,
@@ -34,37 +40,34 @@ class CoursesSection extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40),
+      padding: const EdgeInsets.fromLTRB(120, 80, 120, 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Section Title
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SelectableText(
-              "What You'll Learn in CyTech",
+          // Animated Title Section
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF001668), Color(0xFF2196F3)],
+            ).createShader(bounds),
+            child: const Text(
+              "Learn at CyTech",
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF001668),
+                color: Colors.white,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 16),
-          // Section sub-Title
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SelectableText(
-              "JavaでWebアプリを開発することを最終目標に以下を学習していきます。",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black87,
-              ),
-              textAlign: TextAlign.center,
+          Text(
+            "CyTechで学べること",
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.black54.withOpacity(0.8),
+              letterSpacing: 2,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 32),
           // Horizontal List of Courses
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

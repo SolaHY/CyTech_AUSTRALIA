@@ -7,13 +7,12 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueGrey[900],
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
-            "© 2024 CyTech - All Rights Reserved.",
-            style: TextStyle(color: Colors.white, fontSize: 14),
+          const Text(
+            "© 2025 CyTech - All Rights Reserved.",
+            style: TextStyle(color: Color(0xFF001668), fontSize: 14),
           ),
           const SizedBox(height: 10),
           Row(
@@ -22,7 +21,7 @@ class Footer extends StatelessWidget {
               IconButton(
                 icon:
                     const FaIcon(FontAwesomeIcons.twitter), // Font Awesome icon
-                color: Colors.white,
+                color: const Color(0xFF001668),
                 onPressed: () {
                   // Add Twitter URL or action
                 },
@@ -30,7 +29,7 @@ class Footer extends StatelessWidget {
               IconButton(
                 icon: const FaIcon(
                     FontAwesomeIcons.instagram), // Font Awesome icon
-                color: Colors.white,
+                color: const Color(0xFF001668),
                 onPressed: () {
                   // Add Instagram URL or action
                 },

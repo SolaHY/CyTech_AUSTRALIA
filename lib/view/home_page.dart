@@ -7,67 +7,111 @@ import '../widgets/testimonials_section.dart';
 import '../widgets/contact_form.dart';
 import '../widgets/footer.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final ScrollController _scrollController = ScrollController();
+
+  void scrollToSection(String sectionId) {
+    final context = sectionsKey[sectionId]?.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  final Map<String, GlobalKey> sectionsKey = {
+    'whyus': GlobalKey(),
+    'curriculum': GlobalKey(),
+    'testimonials': GlobalKey(),
+    'contact': GlobalKey(),
+  };
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    // final screenHeight = MediaQuery.of(context).size.height;
+    // final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Stack(
         children: [
-          // Background image with gradient overlay on the left side
-          Positioned.fill(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 255, 255, 255), // Pure white
-                          Color.fromARGB(255, 144, 212, 244),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: screenWidth / 3, // Adjust width for 1/3 or 1/4
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/main_bg.jpeg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           // Foreground content
           SingleChildScrollView(
-            child: Column(
-              children: [
-                HeaderSection(),
-                _divider(),
-                CatchSection(),
-                _divider(),
-                WhyUsSection(),
-                _divider(),
-                CoursesSection(),
-                _divider(),
-                TestimonialsSection(),
-                _divider(),
-                ContactFormWidget(),
-                Footer(),
-              ],
+            controller: _scrollController,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                children: [
+                  _sectionWithBackground(
+                    color: Colors.white,
+                    child: HeaderSection(onNavItemTap: scrollToSection),
+                  ),
+                  // _divider(),
+                  _sectionWithBackground(
+                    color: Colors.green[50]!,
+                    child: const CatchSection(),
+                  ),
+                  // _divider(),
+                  _sectionWithBackground(
+                    key: sectionsKey['whyus'],
+                    color: Colors.white,
+                    child: const WhyUsSection(),
+                  ),
+                  // _divider(),
+                  _sectionWithBackground(
+                    key: sectionsKey['curriculum'],
+                    color: Colors.purple[50]!,
+                    child: const CoursesSection(),
+                  ),
+                  // _divider(),
+                  _sectionWithBackground(
+                    key: sectionsKey['testimonials'],
+                    color: Colors.white,
+                    child: const TestimonialsSection(),
+                  ),
+                  // _divider(),
+                  _sectionWithBackground(
+                    key: sectionsKey['contact'],
+                    color: Colors.red[50]!,
+                    child: const ContactFormWidget(),
+                  ),
+                  // _divider(),
+                  _sectionWithBackground(
+                    color: Colors.white,
+                    child: const Footer(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // Section wrapper with background color
+  Widget _sectionWithBackground(
+      {Key? key, required Color color, required Widget child}) {
+    return Container(
+      key: key,
+      color: color,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: child,
       ),
     );
   }

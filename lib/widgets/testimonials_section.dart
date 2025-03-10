@@ -26,37 +26,34 @@ class TestimonialsSection extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40),
+      padding: const EdgeInsets.fromLTRB(120, 80, 120, 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Section Title
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SelectableText(
-              "What Our Learners Say",
+          // Animated Title Section
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF001668), Color(0xFF2196F3)],
+            ).createShader(bounds),
+            child: const Text(
+              "Learner Testimonials",
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF001668),
+                color: Colors.white,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 16),
-          // Section sub-Title
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SelectableText(
-              "学習者の声を聞いてみましょう。",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black87,
-              ),
-              textAlign: TextAlign.center,
+          Text(
+            "学習者の声を聞いてみましょう。",
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.black54.withOpacity(0.8),
+              letterSpacing: 2,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 32),
           // Horizontal List of Testimonials
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

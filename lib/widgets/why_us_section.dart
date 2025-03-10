@@ -1,152 +1,221 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
-class WhyUsSection extends StatelessWidget {
+class WhyUsSection extends StatefulWidget {
   const WhyUsSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> reasons = [
-      {
-        "number": "01",
-        "title": "目標設定",
-        "description":
-            "学習を始める際に、まずはいつまでに学習を終わらせるか自身の目標設定をしていただきます。学習報告も定期的に義務付けており、進捗管理も確実に行うことができます。\n短期・中期・長期の目標設定をすることで、タスクの優先順位もより明確化して、タイムマネジメント力も身に付きます。",
-      },
-      {
-        "number": "02",
-        "title": "実践的なカリキュラム",
-        "description":
-            "学習修了後に即戦力となる人材になれるようなカリキュラム内容になっております。時間をかけるだけでは意味がありません。どれだけ力が付いているか、実務に近い内容を学習することで体感します。\n２年分の経験値を積むことができます。",
-      },
-      {
-        "number": "03",
-        "title": "手厚いサポート",
-        "description":
-            "今や1on1サポートは当たり前。AIを用いたチャットでよりスピーディに問題解決を行うことができます。また、学習修了後は専属キャリアカウンセラーが転職をサポート致します。\nCyTechでは、「転職コース」を修了したにもかかわらず、6ヶ月以内に就職先が見つからない場合、カリキュラムの受講費用を全額返金いたします。",
-      },
-    ];
+  State<WhyUsSection> createState() => _WhyUsSectionState();
+}
 
+class _WhyUsSectionState extends State<WhyUsSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  final List<Map<String, dynamic>> reasons = [
+    {
+      "number": "01",
+      "title": "目標設定",
+      "description":
+          "学習を始める際に、まずはいつまでに学習を終わらせるか自身の目標設定をしていただきます。\n長期的な目標だけではなく、中長期の目標を設定して始めていきます。\nそうすることで、達成度を定期的に振り返ってより精度の高いスケジュールで進めていくことができます。",
+      "icon": Icons.track_changes,
+    },
+    {
+      "number": "02",
+      "title": "実践的なカリキュラム",
+      "description":
+          "学習修了後に即戦力となる人材になれるようなカリキュラム内容になっております。\nもちろん簡単ではありません。簡単でないことには理由があります。\n学習終了後には現場経験２年レベルの力を身につけます。",
+      "icon": Icons.school,
+    },
+    {
+      "number": "03",
+      "title": "手厚いサポート",
+      "description":
+          "CyTechではAIを用いたチャットでよりスピーディに問題解決を行うことができます。\nもちろんAIとのチャットで解決できなかった場合は経験豊富なインストラクターがチャットや画面共有などを用いてサポート致します。\n",
+      "icon": Icons.support_agent,
+    },
+    {
+      "number": "04",
+      "title": "英語も学べる",
+      "description":
+          "実はCyTechはエンジニアだけではなく、英語についても学べるカリキュラムを用意しています。\nエンジニア学習修了後、ワーキングホリデーで培った英語力をブラッシュアップしていくこともできます。",
+      "icon": Icons.language,
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 20),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+      padding: const EdgeInsets.fromLTRB(120, 80, 120, 80),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Section Title
-          const SelectableText(
-            "Why Choose Our System?",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF001668),
+          // Animated Title Section
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF001668), Color(0xFF2196F3)],
+            ).createShader(bounds),
+            child: const Text(
+              "Why CyTech",
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
-          // Section Title
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SelectableText(
-              "コース終了後、即戦力となることにフォーカスしてます。",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black87,
-              ),
-              textAlign: TextAlign.center,
+          Text(
+            "CyTechが選ばれる理由",
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.black54.withOpacity(0.8),
+              letterSpacing: 2,
             ),
           ),
-          const SizedBox(height: 20),
-          // Reasons Cards (Vertical)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: reasons.map((reason) {
-              return Padding(
-                padding:
-                    const EdgeInsets.only(bottom: 20), // Space between cards
-                child: _buildReasonCard(
-                  number: reason["number"],
-                  title: reason["title"],
-                  description: reason["description"],
-                ),
+          const SizedBox(height: 32),
+          // Reasons Grid
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.5,
+              crossAxisSpacing: 30,
+              mainAxisSpacing: 30,
+            ),
+            itemCount: reasons.length,
+            itemBuilder: (context, index) {
+              return AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return _buildReasonCard(
+                    reasons[index],
+                    _controller.value,
+                    index,
+                  );
+                },
               );
-            }).toList(),
+            },
           ),
         ],
       ),
     );
   }
 
-  // Helper Function to Build Each Reason Card
-  Widget _buildReasonCard({
-    required String number,
-    required String title,
-    required String description,
-  }) {
-    return Container(
-      width: double.infinity, // Full width of the parent
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center, // 縦中央揃え
-        children: [
-          // Number inside a circle
-          Container(
-            width: 50,
-            height: 50,
-            decoration: const BoxDecoration(
-              color: Color(0xFF001668), // Background color
-              shape: BoxShape.circle, // Circle shape
+  Widget _buildReasonCard(
+      Map<String, dynamic> reason, double animation, int index) {
+    final hoverTransform = Matrix4.identity()
+      ..setEntry(3, 2, 0.001)
+      ..rotateY(math.pi * animation * (index % 2 == 0 ? 0.02 : -0.02));
+
+    return MouseRegion(
+      onEnter: (_) => setState(() {}),
+      onExit: (_) => setState(() {}),
+      child: Transform(
+        transform: hoverTransform,
+        alignment: Alignment.center,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                const Color(0xFF001668).withOpacity(0.9),
+                const Color(0xFF001668).withOpacity(0.7),
+              ],
             ),
-            alignment: Alignment.center,
-            child: Text(
-              number,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white, // White text color
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF001668).withOpacity(0.2),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
               ),
-              textAlign: TextAlign.center,
-            ),
+            ],
           ),
-          const SizedBox(width: 16), // Spacing between circle and text content
-          // Text Content
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
               children: [
-                // Title
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF001668),
+                // Background Pattern
+                Positioned(
+                  right: -20,
+                  bottom: -20,
+                  child: Icon(
+                    reason['icon'],
+                    size: 120,
+                    color: Colors.white.withOpacity(0.1),
                   ),
-                  textAlign: TextAlign.left, // Left-aligned text
                 ),
-                const SizedBox(height: 8),
-                // Description
-                Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF001668),
+                // Content
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Icon(
+                              reason['icon'],
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            reason['number'],
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        reason['title'],
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        reason['description'],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
                   ),
-                  textAlign: TextAlign.left, // Left-aligned text
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
