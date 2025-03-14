@@ -43,7 +43,7 @@ class HeaderSection extends StatelessWidget {
             top: 24,
             left: 24,
             child: Image.asset(
-              'assets/images/ct_logo_w.png',
+              'assets/images/ct_logo.png',
               height: 70,
               fit: BoxFit.contain,
             ),
@@ -89,9 +89,9 @@ class HeaderSection extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          color: Colors.black87,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
+          color: Color(0xFF001668),
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

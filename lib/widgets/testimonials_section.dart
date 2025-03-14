@@ -26,7 +26,7 @@ class TestimonialsSection extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(120, 80, 120, 80),
+      padding: const EdgeInsets.fromLTRB(24, 80, 24, 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -38,7 +38,7 @@ class TestimonialsSection extends StatelessWidget {
             child: const Text(
               "Learner Testimonials",
               style: TextStyle(
-                fontSize: 48,
+                fontSize: 42,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

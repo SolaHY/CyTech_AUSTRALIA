@@ -12,7 +12,7 @@ class Footer extends StatelessWidget {
         children: [
           const Text(
             "© 2025 CyTech - All Rights Reserved.",
-            style: TextStyle(color: Color(0xFF001668), fontSize: 14),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
           const SizedBox(height: 10),
           Row(
@@ -21,7 +21,7 @@ class Footer extends StatelessWidget {
               IconButton(
                 icon:
                     const FaIcon(FontAwesomeIcons.twitter), // Font Awesome icon
-                color: const Color(0xFF001668),
+                color: Colors.white,
                 onPressed: () {
                   // Add Twitter URL or action
                 },
@@ -29,7 +29,7 @@ class Footer extends StatelessWidget {
               IconButton(
                 icon: const FaIcon(
                     FontAwesomeIcons.instagram), // Font Awesome icon
-                color: const Color(0xFF001668),
+                color: Colors.white,
                 onPressed: () {
                   // Add Instagram URL or action
                 },
