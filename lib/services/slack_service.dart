@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../config/environment.dart';
+import '../config/proxy_config.dart';
 
 class SlackService {
   Future<bool> sendNotification({
@@ -10,17 +10,7 @@ class SlackService {
   }) async {
     try {
       print('Sending notification to Slack...');
-      print(
-          'Environment: ${Environment.isDevelopment ? 'Development' : 'Production'}');
-
-      // 環境に応じたWebhook URLを取得
-      final webhookUrl = Environment.slackWebhookUrl;
-      print('Webhook URL: $webhookUrl');
-
-      if (webhookUrl.isEmpty) {
-        print('Error: Webhook URL is empty');
-        throw Exception('Webhook URL is not defined');
-      }
+      print('Using proxy URL: ${ProxyConfig.proxyUrl}');
 
       // Slackに送信するメッセージのフォーマット
       final slackPayload = {
@@ -56,7 +46,7 @@ class SlackService {
       print('Sending payload: ${jsonEncode(slackPayload)}');
 
       final response = await http.post(
-        Uri.parse(webhookUrl),
+        Uri.parse(ProxyConfig.proxyUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(slackPayload),
       );

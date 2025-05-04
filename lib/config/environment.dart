@@ -4,10 +4,9 @@ class Environment {
 
   static String get slackWebhookUrl {
     if (isDevelopment) {
-      return 'http://localhost:3000/api/slack'; // 開発環境用のプロキシURL
+      return 'https://hooks.slack.com/services/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';
     } else {
-      return const String.fromEnvironment(
-          'SLACK_WEBHOOK_URL'); // 本番環境用のWebhook URL
+      return const String.fromEnvironment('SLACK_WEBHOOK_URL');
     }
   }
 }
