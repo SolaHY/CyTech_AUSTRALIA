@@ -35,4 +35,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
           publish_branch: gh-pages
-          force: true  # Force push to gh-pages 
+          keep_files: false
+          force_orphan: true 
