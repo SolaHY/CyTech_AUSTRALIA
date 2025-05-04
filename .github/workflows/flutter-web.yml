@@ -20,13 +20,16 @@ jobs:
 
       - name: Build Web
         run: |
-          flutter build web --release
-          # Add cache control to index.html
-          sed -i 's/<head>/<head>\n  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n  <meta http-equiv="Pragma" content="no-cache">\n  <meta http-equiv="Expires" content="0">/' build/web/index.html
+          # Add timestamp to force fresh build
+          TIMESTAMP=$(date +%s)
+          flutter build web --release --dart-define=BUILD_TIMESTAMP=$TIMESTAMP
+          # Add cache control and timestamp to index.html
+          sed -i "s/<head>/<head>\n  <meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">\n  <meta http-equiv=\"Pragma\" content=\"no-cache\">\n  <meta http-equiv=\"Expires\" content=\"0\">\n  <meta name=\"build-timestamp\" content=\"$TIMESTAMP\">/" build/web/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
-          publish_branch: gh-pages 
+          publish_branch: gh-pages
+          force: true  # Force push to gh-pages 
