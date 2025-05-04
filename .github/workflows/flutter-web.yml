@@ -19,7 +19,10 @@ jobs:
         run: flutter pub get
 
       - name: Build Web
-        run: flutter build web --release
+        run: |
+          flutter build web --release
+          # Add cache control to index.html
+          sed -i 's/<head>/<head>\n  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n  <meta http-equiv="Pragma" content="no-cache">\n  <meta http-equiv="Expires" content="0">/' build/web/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
