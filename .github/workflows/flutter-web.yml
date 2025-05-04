@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -30,10 +32,11 @@ jobs:
           cp -r web/icons build/web/
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
-          publish_branch: gh-pages
-          keep_files: false
-          force_orphan: true 
+          folder: build/web
+          branch: gh-pages
+          clean: true
+          clean-exclude: |
+            .nojekyll
+            CNAME 
